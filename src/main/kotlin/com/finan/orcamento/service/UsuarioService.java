@@ -33,7 +33,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioModel);
     }
 
-    public UsuarioModel atalizaUsuario(UsuarioModel usuarioModel, Long id){
+    public UsuarioModel atualizaUsuario(UsuarioModel usuarioModel, Long id){
         UsuarioModel newUsuarioModel = buscaId(id);
         newUsuarioModel.setNomeUsuario(usuarioModel.getNomeUsuario());
         return usuarioRepository.save(newUsuarioModel);
