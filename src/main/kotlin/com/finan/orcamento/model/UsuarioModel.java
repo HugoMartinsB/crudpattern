@@ -1,5 +1,6 @@
 package com.finan.orcamento.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,12 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="usuario")
 public class UsuarioModel implements Serializable {
@@ -19,11 +22,11 @@ public class UsuarioModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Notblank
+    @NotBlank
     @Column(name="nome_usuario")
     private String nomeUsuario;
 
     @JsonIgnore
-    @OneToMany(mappedBy ="Id")
-    private List<OrcamentoModel> Orcamentos = new ArrayList<>();
+    @OneToMany(mappedBy = "id")
+    private List<OrcamentoModel> orcamentos = new ArrayList<>();
 }

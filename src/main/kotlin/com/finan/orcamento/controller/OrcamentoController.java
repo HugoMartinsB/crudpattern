@@ -1,8 +1,8 @@
 package com.finan.orcamento.controller;
 
-import com.finan.orcamento.model.UsuarioModel;
-import com.finan.orcamento.repositories.UsuarioRepository;
-import com.finan.orcamento.service.UsuarioService;
+import com.finan.orcamento.model.OrcamentoModel;
+import com.finan.orcamento.repositories.OrcamentoRepository;
+import com.finan.orcamento.service.OrcamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(path="/usuarios")
 @RestController
+@RequestMapping(path="/orcamentos")
 public class OrcamentoController {
     @Autowired
     private OrcamentoService orcamentoService;
@@ -19,32 +19,25 @@ public class OrcamentoController {
     private OrcamentoRepository orcamentoRepository;
 
     @GetMapping
-    public ResponseEntity<List<OrcamentoModel>> BuscaTodosOrcamentos(){
+    public ResponseEntity<List<OrcamentoModel>>buscaTodosOrcamentos(){
         return ResponseEntity.ok(orcamentoService.buscarCadastro());
     }
-
     @GetMapping(path="/pesquisaid/{id}")
-    public ResponseEntity<OrcamentoModel> buscaPorId(@PathVariable Long id){
+    public ResponseEntity<OrcamentoModel>buscaPorId(@PathVariable Long id){
         return ResponseEntity.ok().body(orcamentoService.buscaId(id));
     }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UsuarioModel> cadastraOrcametno(@RequestBody OrcamentoModel orcamentoModel){
-        return ResponseEntity.ok(orcamentoService.cadastrarUsuario(orcamentoModel));
+    public ResponseEntity<OrcamentoModel>cadastraOrcamento(@RequestBody OrcamentoModel orcamentoModel){
+        return ResponseEntity.ok(orcamentoService.cadastrarOrcamento(orcamentoModel));
     }
-
-    @PostMapping(path = "/put/{id}")
-    public ResponseEntity<UsuarioModel> atualizaUsuario(@RequestBody UsuarioModel usuarioModel, @PathVariable Long id) {
-        UsuarioModel usuarioNewObj = orcamentoService.atualizaUsuario(usuarioModel, id);
-        return ResponseEntity.ok().body(usuarioNewObj);
+    @PostMapping(path="/put/{id}")
+    public ResponseEntity<OrcamentoModel>atualizaOrcamento(@RequestBody OrcamentoModel orcamentoModel, @PathVariable Long id){
+        OrcamentoModel orcamentoNewObj= orcamentoService.atualizaCadastro(orcamentoModel, id);
+        return ResponseEntity.ok().body(orcamentoNewObj);
     }
-
-    @DeleteMapping(path = "/delete/{id}")
-    public void deleteUsuario(@PathVariable Long id){
-        orcamentoService.deletaUsuario(id);
+    @DeleteMapping(path="/delete/{id}")
+    public void deleteOrcamento(@PathVariable Long id){
+        orcamentoService.deletaOrcamento(id);
     }
-
-
-
 }

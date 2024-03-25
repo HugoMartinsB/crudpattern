@@ -19,15 +19,12 @@ public class UsuarioService {
 
     public UsuarioModel buscaId(Long id){
         Optional<UsuarioModel>obj=usuarioRepository.findById(id);
-        if(obj.isPresent()) {
+        if (obj.isPresent()) {
             return obj.get();
+        } else {
+            throw new RuntimeException("Usuário não encontrado");
         }
-            else{
-                throw new RuntimeException("Usuário não encontrado");
-            }
-
     }
-
 
     public UsuarioModel cadastrarUsuario(UsuarioModel usuarioModel){
         return usuarioRepository.save(usuarioModel);
@@ -38,9 +35,7 @@ public class UsuarioService {
         newUsuarioModel.setNomeUsuario(usuarioModel.getNomeUsuario());
         return usuarioRepository.save(newUsuarioModel);
     }
-
     public void deletaUsuario(Long id){
         usuarioRepository.deleteById(id);
     }
-
 }
